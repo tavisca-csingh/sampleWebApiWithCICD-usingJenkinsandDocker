@@ -21,9 +21,7 @@ pipeline {
         }
 	    
        stage('docker Image creation')
-        {
-            steps
-            {
+        {    
                 bat'''
 		docker build --tag=%DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG% --build-arg project_name=%APPLICATION_NAME% .
 		'''
@@ -34,7 +32,7 @@ pipeline {
         {
             steps {
 		    script {
-			    docker.withRegistry('https://www.docker.io/', "${env.DOCKER_HUB_CREDENTIALS_ID}") 
+			    docker.withRegistry('https://www.docker.io/', %DOCKER_HUB_CREDENTIALS_ID) 
 			    {
 				bat '''
 				docker push %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
