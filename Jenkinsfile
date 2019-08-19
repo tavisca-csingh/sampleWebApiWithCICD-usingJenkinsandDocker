@@ -34,15 +34,16 @@ pipeline {
         {
             steps {
 		    script {
-                    docker.withRegistry('https://www.docker.io/', "${env.DOCKER_HUB_CREDENTIALS_ID}") 
-		    }
-		    steps{
-                        bat '''
-			docker push %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
-			'''
-		    } 
+			    docker.withRegistry('https://www.docker.io/', "${env.DOCKER_HUB_CREDENTIALS_ID}") 
+			    {
+				bat '''
+				docker push %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
+				'''
+			    }
                 
-            }
+                       }
+	   }
+		
         }
 
 
