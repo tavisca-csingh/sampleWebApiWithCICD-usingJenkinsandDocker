@@ -22,10 +22,12 @@ pipeline {
 	    
        stage('docker Image creation')
         {    
+		steps
+		{
                 bat'''
 		docker build --tag=%DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG% --build-arg project_name=%APPLICATION_NAME% .
 		'''
-            }
+                }
         }
         
         stage('Push DockerImage') 
@@ -39,8 +41,8 @@ pipeline {
 				'''
 			    }
                 
-                       }
-	   }
+                           }
+	   	  }
 		
         }
 	   
