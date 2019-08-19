@@ -24,9 +24,9 @@ pipeline {
         {
             steps
             {
-                powershell'''
-		mv Dockerfile ${env.APPLICATION_NAME}/artifacts
-		docker build --tag ${env.DOCKER_HUB_USERNAME}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG} --build-arg ${env.APPLICATION_NAME} .
+                bat'''
+		//mv Dockerfile %APPLICATION_NAME%/artifacts
+		docker build --tag=%DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG% --build-arg project_name=%APPLICATION_NAME% .
 		'''
             }
         }
