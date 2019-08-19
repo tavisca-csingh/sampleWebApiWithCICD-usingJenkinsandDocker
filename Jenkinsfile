@@ -9,6 +9,8 @@ pipeline {
         string(name: 'DOCKER_HUB_CREDENTIALS_ID', defaultValue: 'DockerCredentials')
         string(name: 'DOCKER_IMAGE_NAME', defaultValue: 'demo-image')
         string(name: 'DOCKER_IMAGE_TAG', defaultValue: 'latest')
+	string(name: 'Listen_To_Port', defaultValue: 6000)
+	    
     }
     stages {
         stage('Build') {
@@ -39,6 +41,21 @@ pipeline {
 			'''                        
 	   	  }
 		
+        }
+	
+	stage('Deploy') {
+            steps {
+                bat '''
+				docker pull %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
+				
+				echo "hit localhost:%Listen_To_Port%/chat"				
+				
+				docker run -p %Listen_To_Port%:80 %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
+				
+				
+				
+				'''
+            }
         }
 	   
 
