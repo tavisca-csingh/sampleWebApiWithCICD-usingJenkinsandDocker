@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                powershell 
+                bat
 		    '''
 			dotnet restore ${SOLUTION_FILE_PATH} --source https://api.nuget.org/v3/index.json
 			dotnet build  ${SOLUTION_FILE_PATH} -p:Configuration=release -v:q
@@ -28,7 +28,7 @@ pipeline {
         {
             steps
             {
-                powershell 
+                bat
 		'''
 		mv Dockerfile ${env.APPLICATION_NAME}/artifacts
 		docker build -t ${env.DOCKER_HUB_USERNAME}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG} --build-arg ${env.APPLICATION_NAME} .
@@ -42,7 +42,7 @@ pipeline {
 		    script {
                     docker.withRegistry('https://www.docker.io/', "${env.DOCKER_HUB_CREDENTIALS_ID}") 
                     {
-                        powershell "docker push ${env.DOCKER_HUB_USERNAME}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG}"   
+                        bat "docker push ${env.DOCKER_HUB_USERNAME}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG}"   
                     }
                 }
             }
