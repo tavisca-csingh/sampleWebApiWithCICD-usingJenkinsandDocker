@@ -34,7 +34,7 @@ pipeline {
         {
             steps {
 		    bat'''
-			docker login -u ichandan8 -p %DOCKER_PASSWORD%
+			docker login -u  %DOCKER_HUB_USERNAME% -p %DOCKER_PASSWORD% 
 			docker push %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
 			'''                        
 	   	  }
