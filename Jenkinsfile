@@ -46,7 +46,9 @@ pipeline {
 	stage('Deploy')
 	    {
             steps {
-                bat '''	docker pull %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%'''
+                bat '''	docker pull %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
+		docker run -p 8067:80 %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
+		'''
             	}
            }
 	    
@@ -58,7 +60,7 @@ pipeline {
 			    dotnet C:/Users/csingh/Downloads/sonar-scanner-msbuild-4.6.2.2108-netcoreapp2.0/SonarScanner.MSBuild.dll begin /k:"WebApi" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="cacd8f279a423a06f1a9963cba71f62471a186b2"
 			    dotnet build
 			    dotnet test
-			    dotnet dotnet C:/Users/csingh/Downloads/sonar-scanner-msbuild-4.6.2.2108-netcoreapp2.0/SonarScanner.MSBuild.dll end /d:sonar.login="cacd8f279a423a06f1a9963cba71f62471a186b2"
+			    dotnet C:/Users/csingh/Downloads/sonar-scanner-msbuild-4.6.2.2108-netcoreapp2.0/SonarScanner.MSBuild.dll end /d:sonar.login="cacd8f279a423a06f1a9963cba71f62471a186b2"
 			    '''
 		    }
 	    }
