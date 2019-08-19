@@ -13,8 +13,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                powershell
-		    '''	dotnet build  ${SOLUTION_FILE_PATH} -p:Configuration=release -v:q
+                powershell'''	dotnet build  ${SOLUTION_FILE_PATH} -p:Configuration=release -v:q
 			dotnet test ${TEST_PROJECT_PATH}
 			dotnet publish WebApi -c Release -o artifacts
 		    '''
@@ -25,8 +24,7 @@ pipeline {
         {
             steps
             {
-                powershell
-		'''
+                powershell'''
 		mv Dockerfile ${env.APPLICATION_NAME}/artifacts
 		docker build -t ${env.DOCKER_HUB_USERNAME}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG} --build-arg ${env.APPLICATION_NAME} .
 		'''
