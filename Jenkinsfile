@@ -9,7 +9,7 @@ pipeline {
         string(name: 'DOCKER_HUB_CREDENTIALS_ID', defaultValue: 'DockerCredentials')
         string(name: 'DOCKER_IMAGE_NAME', defaultValue: 'demo-image')
         string(name: 'DOCKER_IMAGE_TAG', defaultValue: 'latest')
-	string(name: 'Listen_To_Port', defaultValue: 6000)
+	string(name: 'Listen_To_Port', defaultValue: '6000')
 	    
     }
     stages {
