@@ -33,15 +33,10 @@ pipeline {
         stage('Push DockerImage') 
         {
             steps {
-		   
-			    bat'''
-			    docker.withRegistry('https://www.docker.io/', '%DOCKER_HUB_CREDENTIALS_ID%') 
-			 
-				docker push %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
-				'''
-			   
-                
-                           
+		    bat'''
+			docker.withRegistry('https://www.docker.io/', %DOCKER_HUB_CREDENTIALS_ID%) 
+			docker push %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
+			'''                        
 	   	  }
 		
         }
