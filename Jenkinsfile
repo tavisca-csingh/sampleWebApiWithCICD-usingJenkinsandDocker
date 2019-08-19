@@ -46,11 +46,9 @@ pipeline {
 	stage('Deploy') {
             steps {
                 bat '''
-				docker pull %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
+				docker pull %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%				
 				
-				echo "hit localhost:%Listen_To_Port%/chat"				
-				
-				docker run -p %Listen_To_Port%:80 %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
+				docker run %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
 				
 				
 				
