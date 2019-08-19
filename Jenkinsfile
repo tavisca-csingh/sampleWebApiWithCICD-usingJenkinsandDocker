@@ -15,7 +15,7 @@ pipeline {
             steps {
                 bat'''	dotnet build  %SOLUTION_FILE_PATH -p:Configuration=release -v:q
 			dotnet test %TEST_PROJECT_PATH%
-			dotnet publish WebApi -c Release ../artifacts
+			dotnet publish WebApi -c Release -o ../artifacts
 		    '''
             }
         }
