@@ -34,7 +34,7 @@ pipeline {
         {
             steps {
 		    bat'''
-			docker.withRegistry('https://www.docker.io/', %DOCKER_HUB_CREDENTIALS_ID%) 
+			docker login -u ichandan8 -p %DOCKER_PASSWORD%
 			docker push %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
 			'''                        
 	   	  }
