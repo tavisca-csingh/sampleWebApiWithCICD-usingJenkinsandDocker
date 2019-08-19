@@ -32,7 +32,7 @@ pipeline {
         {
             steps {
 		    script {
-			    docker.withRegistry('https://www.docker.io/', %DOCKER_HUB_CREDENTIALS_ID) 
+			    docker.withRegistry('https://www.docker.io/', 'DockerCredentials') 
 			    {
 				bat '''
 				docker push %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
