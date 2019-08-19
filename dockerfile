@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:1.1
+FROM mcr.microsoft.com/dotnet/core/aspnet
 
 WORKDIR /artifacts
 
