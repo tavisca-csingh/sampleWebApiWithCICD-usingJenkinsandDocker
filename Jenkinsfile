@@ -13,42 +13,33 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                powershell '''
+                powershell 
+		    '''
 			dotnet restore ${SOLUTION_FILE_PATH} --source https://api.nuget.org/v3/index.json
 			dotnet build  ${SOLUTION_FILE_PATH} -p:Configuration=release -v:q
-			
-			dotnet publish WebApi -c Release -o artifacts
 			dotnet test ${TEST_PROJECT_PATH}
-		'''
+			dotnet publish WebApi -c Release -o artifacts
+			
+		    '''
             }
         }
 	    
-       stage('Set-up for docker CustomImage creation')
+       stage('docker Image creation')
         {
             steps
             {
-                powershell "mv Dockerfile ${env.APPLICATION_NAME}/artifacts"
+                powershell 
+		'''
+		mv Dockerfile ${env.APPLICATION_NAME}/artifacts
+		docker build -t ${env.DOCKER_HUB_USERNAME}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG} --build-arg ${env.APPLICATION_NAME} .
+		'''
             }
         }
-        stage('Build Custom Docker Image')
-        {
-            steps 
-            {
-                script 
-                {
-                    dir("${env.APPLICATION_NAME}/artifacts") 
-                    {
-                       
-                        powershell "docker build -t ${env.DOCKER_HUB_USERNAME}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG} --build-arg APPLICATION_NAME_TO_BE_HOSTED=${env.APPLICATION_NAME} ."
-                    }
-                }
-            }
-        }
-        stage('Push Docker CustomImage to DockerIO registry') 
+        
+        stage('Push DockerImage') 
         {
             steps {
-                script {
-                    // CustomImage.push()
+		    script {
                     docker.withRegistry('https://www.docker.io/', "${env.DOCKER_HUB_CREDENTIALS_ID}") 
                     {
                         powershell "docker push ${env.DOCKER_HUB_USERNAME}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG}"   
