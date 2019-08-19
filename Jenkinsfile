@@ -33,7 +33,7 @@ pipeline {
         stage('Push DockerImage') 
         {
             steps {
-		    script {
+		   
 			    bat'''
 			    docker.withRegistry('https://www.docker.io/', '%env.DOCKER_HUB_CREDENTIALS_ID%') 
 			 
@@ -41,7 +41,7 @@ pipeline {
 				'''
 			   
                 
-                           }
+                           
 	   	  }
 		
         }
