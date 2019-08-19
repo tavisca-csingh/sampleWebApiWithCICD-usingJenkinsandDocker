@@ -15,7 +15,7 @@ pipeline {
             steps {
                 powershell
 		    '''
-			dotnet restore ${SOLUTION_FILE_PATH} --source https://api.nuget.org/v3/index.json
+		
 			dotnet build  ${SOLUTION_FILE_PATH} -p:Configuration=release -v:q
 			dotnet test ${TEST_PROJECT_PATH}
 			dotnet publish WebApi -c Release -o artifacts
