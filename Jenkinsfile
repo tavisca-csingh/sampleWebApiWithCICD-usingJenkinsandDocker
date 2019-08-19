@@ -26,7 +26,7 @@ pipeline {
             {
                 powershell'''
 		mv Dockerfile ${env.APPLICATION_NAME}/artifacts
-		docker build -t ${env.DOCKER_HUB_USERNAME}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG} --build-arg ${env.APPLICATION_NAME} .
+		docker build -t: ${env.DOCKER_HUB_USERNAME}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG} --build-arg ${env.APPLICATION_NAME} .
 		'''
             }
         }
