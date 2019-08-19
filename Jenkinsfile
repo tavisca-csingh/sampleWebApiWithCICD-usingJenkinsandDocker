@@ -45,14 +45,7 @@ pipeline {
 	
 	stage('Deploy') {
             steps {
-                bat '''
-				docker pull %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%				
-				
-				docker run %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
-				
-				
-				
-				'''
+                bat '''	docker pull %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%'''
             }
         }
 	   
