@@ -15,7 +15,7 @@ pipeline {
             steps {
                 bat'''	dotnet build  %SOLUTION_FILE_PATH -p:Configuration=release -v:q
 			dotnet test %TEST_PROJECT_PATH%
-			dotnet publish WebApi -c Release -o artifacts
+			dotnet publish WebApi -c Release ../artifacts
 		    '''
             }
         }
@@ -35,7 +35,7 @@ pipeline {
             steps {
 		    script {
 			    bat'''
-			    docker.withRegistry('https://www.docker.io/', %env.DOCKER_HUB_CREDENTIALS_ID%) 
+			    docker.withRegistry('https://www.docker.io/', '%env.DOCKER_HUB_CREDENTIALS_ID%') 
 			 
 				docker push %DOCKER_HUB_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
 				'''
